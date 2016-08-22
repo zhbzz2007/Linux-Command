@@ -3,5 +3,6 @@
  - [chgrp](1.File Management/chgrp.md)
  - [chmod](1.File Management/chmod.md)
  - [chmod](1.File Management/chown.md)
+ - [cksum](1.File Management/cksum.md)
 * [2.磁盘管理](2.Disk Management/README.md)
  - [cd](2.Disk Management/cd.md)
