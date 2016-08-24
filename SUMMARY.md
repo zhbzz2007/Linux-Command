@@ -5,5 +5,6 @@
  - [chmod](1.File Management/chown.md)
  - [cksum](1.File Management/cksum.md)
  - [cmp](1.File Management/cmp.md)
+ - [cp](1.File Management/cp.md)
 * [2.磁盘管理](2.Disk Management/README.md)
  - [cd](2.Disk Management/cd.md)
