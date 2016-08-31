@@ -80,3 +80,154 @@
     -d, --minimal                   使用不同的演算法，以小的单位来做比较
         --horizon-lines=NUM         保持前缀后后缀NUM行
         --speed-large-files         假定大文件中许多小变化
+
+**示例：**
+
+example 1，比较两个文件，
+
+    zhb@zhb-VM:~/Desktop/work/test$ diff temp1/1.txt temp2/1.txt
+    3c3
+    < Desktop
+    ---
+    > Mobile
+    5a6
+    > Ubuntu
+    7d7
+    < Windows Phone
+
+3c3说明temp1/1.txt与temp2/1.txt第3行不同，5a6说明temp1/1.txt比temp2/1.txt少了"Ubuntu"，7d7说明temp1/1.txt与temp2/1.txt第7行多了"Window Phone"；
+
+diff的normal显示格式有三种提示，
+
+    a - add
+
+    c - change
+
+    d - delete
+
+example 2，并排格式输出，
+
+    zhb@zhb-VM:~/Desktop/work/test$ diff temp1/1.txt temp2/1.txt -y -W 50
+    zhb@zhb-VM:~/Desktop/work/test$ diff temp1/1.txt temp2/1.txt -y -W 100
+    I use Ubuntu as my work enviroment.     I use Ubuntu as my work enviroment.
+    Life is short, use Python.              Life is short, use Python.
+    Desktop                               |	Mobile
+    Mac OSX                                 Mac OSX
+    Windows                                 Windows
+                                         >	Ubuntu
+    IOS                                     IOS
+    Windows Phone                        <
+    Android                                 Android
+
+输出格式说明，
+
+    "|"表示前后2个文件内容有不同
+
+    "<"表示后面文件比前面文件少了1行内容
+
+    ">"表示后面文件比前面文件多了1行内容
+
+
+example 3，上下文输出格式，
+
+    zhb@zhb-VM:~/Desktop/work/test$ diff temp1/1.txt temp2/1.txt -c
+    *** temp1/1.txt	2016-08-31 21:19:01.427960075 +0800
+    --- temp2/1.txt	2016-08-31 21:19:10.395960119 +0800
+    ***************
+    *** 1,8 ****
+      I use Ubuntu as my work enviroment.
+      Life is short, use Python.
+    ! Desktop
+      Mac OSX
+      Windows
+      IOS
+    - Windows Phone
+      Android
+    --- 1,8 ----
+      I use Ubuntu as my work enviroment.
+      Life is short, use Python.
+    ! Mobile
+      Mac OSX
+      Windows
+    + Ubuntu
+      IOS
+      Android
+
+格式说明，
+
+    "+"表示比较的文件的后者比前者多1行
+
+    "-"表示比较的文件的后者比前者少1行
+
+    "!"表示比较的文件有不同的行
+
+example 4,统一格式输出，
+
+    zhb@zhb-VM:~/Desktop/work/test$ diff temp1/1.txt temp2/1.txt -u
+    --- temp1/1.txt	2016-08-31 21:19:01.427960075 +0800
+    +++ temp2/1.txt	2016-08-31 21:19:10.395960119 +0800
+    @@ -1,8 +1,8 @@
+     I use Ubuntu as my work enviroment.
+     Life is short, use Python.
+    -Desktop
+    +Mobile
+     Mac OSX
+     Windows
+    +Ubuntu
+     IOS
+    -Windows Phone
+     Android
+
+格式说明，
+
+1.第一部分，也就是文件的基本信息，"---"表示变动前的文件，"+++"表示变动后的文件；
+
+    --- temp1/1.txt	2016-08-31 21:19:01.427960075 +0800
+
+    +++ temp2/1.txt	2016-08-31 21:19:10.395960119 +0800
+
+2.第二部分，变动的位置用两个@表示作为起首和结束，
+
+    @@ -1,8 +1,8 @@
+
+前面的"-1,8"分成三个部分，减号表示第一个文件（即temp1/1.txt），"1"表示第1行，"8"表示连续8行，何在一起，就表示下面是第一个文件从第1行开始的连续8行；同样的，"+1,10"表示变动后，第二个文件从第1行开始的连续10行；
+
+example 5,比较文件夹的不同，
+
+    zhb@zhb-VM:~/Desktop/work/test$ diff temp1 temp2
+    diff temp1/1.txt temp2/1.txt
+    3c3
+    < Desktop
+    ---
+    > Mobile
+    5a6
+    > Ubuntu
+    7d7
+    < Windows Phone
+    diff temp1/2.txt temp2/2.txt
+    3c3
+    < Storm
+    ---
+    >
+
+example 6,比较两个文件不同，并生产补丁，
+
+    zhb@zhb-VM:~/Desktop/work/test$ diff -ruN temp1/1.txt temp2/1.txt  > patch.log
+    zhb@zhb-VM:~/Desktop/work/test$ cat patch.log
+    --- temp1/1.txt	2016-08-31 21:19:01.427960075 +0800
+    +++ temp2/1.txt	2016-08-31 21:19:10.395960119 +0800
+    @@ -1,8 +1,8 @@
+     I use Ubuntu as my work enviroment.
+     Life is short, use Python.
+    -Desktop
+    +Mobile
+     Mac OSX
+     Windows
+    +Ubuntu
+     IOS
+    -Windows Phone
+     Android
+
+**Reference:**
+
+[linux命令大全之diff命令详解(比较文件内容)](http://www.jb51.net/LINUXjishu/151930.html)
