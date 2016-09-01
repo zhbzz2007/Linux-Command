@@ -1,4 +1,4 @@
-**用法：**
+## 1.用法
 
 1. diff [选项]... FILES
 
@@ -81,9 +81,9 @@
         --horizon-lines=NUM         保持前缀后后缀NUM行
         --speed-large-files         假定大文件中许多小变化
 
-**示例：**
+## 2.示例
 
-example 1，比较两个文件，
+**example 1:** 比较两个文件，
 
     zhb@zhb-VM:~/Desktop/work/test$ diff temp1/1.txt temp2/1.txt
     3c3
@@ -105,7 +105,7 @@ diff的normal显示格式有三种提示，
 
     d - delete
 
-example 2，并排格式输出，
+**example 2:** 并排格式输出，
 
     zhb@zhb-VM:~/Desktop/work/test$ diff temp1/1.txt temp2/1.txt -y -W 50
     zhb@zhb-VM:~/Desktop/work/test$ diff temp1/1.txt temp2/1.txt -y -W 100
@@ -128,7 +128,7 @@ example 2，并排格式输出，
     ">"表示后面文件比前面文件多了1行内容
 
 
-example 3，上下文输出格式，
+**example 3:** 上下文输出格式，
 
     zhb@zhb-VM:~/Desktop/work/test$ diff temp1/1.txt temp2/1.txt -c
     *** temp1/1.txt	2016-08-31 21:19:01.427960075 +0800
@@ -161,7 +161,7 @@ example 3，上下文输出格式，
 
     "!"表示比较的文件有不同的行
 
-example 4,统一格式输出，
+**example 4:** 统一格式输出，
 
     zhb@zhb-VM:~/Desktop/work/test$ diff temp1/1.txt temp2/1.txt -u
     --- temp1/1.txt	2016-08-31 21:19:01.427960075 +0800
@@ -192,7 +192,7 @@ example 4,统一格式输出，
 
 前面的"-1,8"分成三个部分，减号表示第一个文件（即temp1/1.txt），"1"表示第1行，"8"表示连续8行，何在一起，就表示下面是第一个文件从第1行开始的连续8行；同样的，"+1,10"表示变动后，第二个文件从第1行开始的连续10行；
 
-example 5,比较文件夹的不同，
+**example 5:** 比较文件夹的不同，
 
     zhb@zhb-VM:~/Desktop/work/test$ diff temp1 temp2
     diff temp1/1.txt temp2/1.txt
@@ -210,7 +210,7 @@ example 5,比较文件夹的不同，
     ---
     >
 
-example 6,比较两个文件不同，并生产补丁，
+**example 6:** 比较两个文件不同，并生产补丁，
 
     zhb@zhb-VM:~/Desktop/work/test$ diff -ruN temp1/1.txt temp2/1.txt  > patch.log
     zhb@zhb-VM:~/Desktop/work/test$ cat patch.log
@@ -228,6 +228,6 @@ example 6,比较两个文件不同，并生产补丁，
     -Windows Phone
      Android
 
-**Reference:**
+## 3.Reference:
 
 [linux命令大全之diff命令详解(比较文件内容)](http://www.jb51.net/LINUXjishu/151930.html)
