@@ -9,5 +9,6 @@
  - [cut](1.File Management/cut.md)
  - [diff](1.File Management/diff.md)
  - [diffstat](1.File Management/diffstat.md)
+ - [file](1.File Management/file.md)
 * [2.磁盘管理](2.Disk Management/README.md)
  - [cd](2.Disk Management/cd.md)
