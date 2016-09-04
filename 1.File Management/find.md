@@ -313,6 +313,171 @@ zhb@zhb-VM:~/Desktop/work/test$ find . -type f -atime 3
     ./Abc.txt
     ./abc.txt
 
+**example 6:** 根据文件大小进行匹配，
+
+    find . -type f -size 文件大小单元
+
+文件大小单元，
+
+    b  块（512字节）
+    c  字节
+    w  字（2字节）
+    k  千字节
+    M  兆字节
+    G  吉字节
+
+搜索大于10字节的文件，
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -type f -size +10c
+    ./temp1/1.txt
+    ./temp1/2.txt
+    ./temp2/1.txt
+    ./temp2/2.txt
+    ./patch.log
+
+搜索等于10字节的文件，
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -type f -size 113c
+    ./temp1/1.txt
+
+**example 7:** 删除匹配文件
+
+删除当前目录下所有的.txt文件
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -type f -name "*.txt" -delete
+    zhb@zhb-VM:~/Desktop/work/test$ ll
+    总用量 24
+    drwxrwxr-x  5 zhb zhb 4096  9月  3 22:15 ./
+    drwxrwxr-x 22 zhb zhb 4096  8月 24 22:01 ../
+    -rw-rw-r--  1 zhb zhb    0  9月  3 20:47 1.TXT
+    lrwxrwxrwx  1 zhb zhb   11  9月  3 21:50 2.txt -> temp1/2.txt
+    -rw-rw-r--  1 zhb zhb  257  8月 31 21:44 patch.log
+    drwxrwxr-x  2 zhb zhb 4096  9月  3 22:15 temp1/
+    drwxrwxr-x  2 zhb zhb 4096  9月  3 22:15 temp2/
+    drwxrwxr-x  2 zhb zhb 4096  9月  3 22:15 temp3/
+
+**example 8:** 根据文件权限/所有权进行匹配，
+
+当前目录下搜索出权限为777的文件，
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -type f -perm 777
+    ./Abc.txt
+    ./abc.txt
+
+找出当前目录下权限不是777的txt文件，
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -type f  -name "*.txt" ! -perm 777
+    ./23.txt
+
+找出当前目录用户zhb拥有的所有文件，
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -type f -user zhb
+    ./1.TXT
+    ./Abc.txt
+    ./23.txt
+    ./patch.log
+    ./abc.txt
+
+找出当前目录用户组zhb拥有的素有文件，
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -type f -group zhb
+    ./1.TXT
+    ./Abc.txt
+    ./23.txt
+    ./patch.log
+    ./abc.txt
+
+**example 9:** 借助-exec选项与其它命令结合使用，
+
+找出当前目录下所有的root的文件，并把所有权更改为用户zhb，本例中，{}用于与-exec选项结合使用来匹配所有文件，然后会被替换为相应的文件名;
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -type f -user root -exec sudo chown zhb {} \;
+    [sudo] password for zhb:
+    zhb@zhb-VM:~/Desktop/work/test$ ll
+    总用量 24
+    drwxrwxr-x  5 zhb zhb 4096  9月  3 22:19 ./
+    drwxrwxr-x 22 zhb zhb 4096  8月 24 22:01 ../
+    -rw-rw-r--  1 zhb zhb    0  9月  3 20:47 1.TXT
+    -rw-rw-r--  1 zhb zhb    0  9月  3 22:19 23.txt
+    lrwxrwxrwx  1 zhb zhb   11  9月  3 21:50 2.txt -> temp1/2.txt
+    -rwxrwxrwx  1 zhb zhb    0  9月  3 22:17 abc.txt*
+    -rwxrwxrwx  1 zhb zhb    0  9月  3 22:17 Abc.txt*
+    -rw-rw-r--  1 zhb zhb  257  8月 31 21:44 patch.log
+    drwxrwxr-x  2 zhb zhb 4096  9月  3 22:15 temp1/
+    drwxrwxr-x  2 zhb zhb 4096  9月  3 22:15 temp2/
+    drwxrwxr-x  2 zhb zhb 4096  9月  3 22:15 temp3/
+
+找出当前目录下所有的.txt文件并删除，本例中，-ok与-exec行为一样，不过它会给出提示，是否执行相应的操作；
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -name "*.txt" -ok rm {} \;< rm ... ./Abc.txt > ? y
+    < rm ... ./23.txt > ? y
+    < rm ... ./2.txt > ? y
+    < rm ... ./abc.txt > ? y
+    zhb@zhb-VM:~/Desktop/work/test$ ll
+    总用量 24
+    drwxrwxr-x  5 zhb zhb 4096  9月  3 23:25 ./
+    drwxrwxr-x 22 zhb zhb 4096  8月 24 22:01 ../
+    -rw-rw-r--  1 zhb zhb    0  9月  3 20:47 1.TXT
+    -rw-rw-r--  1 zhb zhb  257  8月 31 21:44 patch.log
+    drwxrwxr-x  2 zhb zhb 4096  9月  3 22:15 temp1/
+    drwxrwxr-x  2 zhb zhb 4096  9月  3 22:15 temp2/
+    drwxrwxr-x  2 zhb zhb 4096  9月  3 22:15 temp3/
+
+查找当前目录下所有.txt文件并把它们拼接起来写入到all.txt文件中，
+
+    zhb@zhb-VM:~/Desktop/work/test$ cat 23.txt
+    23
+    zhb@zhb-VM:~/Desktop/work/test$ cat abc.txt
+    abc
+    zhb@zhb-VM:~/Desktop/work/test$ find . -type f -name "*.txt" -exec cat {} \;> all.txt
+    cat: ./all.txt：输入文件是输出文件
+    zhb@zhb-VM:~/Desktop/work/test$ cat all.txt
+    23
+    abc
+
+将1天前的.log文件移动到old目录中，
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -type f -mtime +1 -name "*.log" -exec cp {} old \;
+    zhb@zhb-VM:~/Desktop/work/test$ ll old
+    总用量 12
+    drwxrwxr-x 2 zhb zhb 4096  9月  4 10:37 ./
+    drwxrwxr-x 6 zhb zhb 4096  9月  4 10:36 ../
+    -rw-rw-r-- 1 zhb zhb  257  9月  4 10:37 patch.log
+
+找出当前目录下所有的.txt文件并以"File:文件名"的形式打印出来，
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -type f  -name "*.txt" -exec printf "File:%s\n" {} \;
+    File:./all.txt
+    File:./23.txt
+    File:./abc.txt
+
+因为单行命令参数中-exec参数无法使用多个命令，一下方法可以实现在-exec之后接受多个命令
+
+    -exec ./test.sh {} \;
+
+**example 10:** 搜索但跳出指定的目录
+
+查找当前目录或者子目录下所有.txt文件，但是跳过子目录temp2,
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -path "./temp2" -prune -o -name "*.txt" -print
+    ./Abc.txt
+    ./23.txt
+    ./2.txt
+    ./abc.txt
+
+**example 11:** 其它技巧收集
+
+列出所有长度为0的文件，
+
+    zhb@zhb-VM:~/Desktop/work/test$ find . -empty
+    ./1.TXT
+    ./temp1
+    ./Abc.txt
+    ./23.txt
+    ./temp2
+    ./temp3
+    ./abc.txt
+
 ## 3.Reference
 
 [find命令](http://man.linuxde.net/find)
