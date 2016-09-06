@@ -1,9 +1,12 @@
 ## 1.用法
-usage: git [--version] [--help] [-C <path>] [-c name=value]
+
+1. usage: git [--version] [--help] [-C <path>] [-c name=value]
            [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
            [-p|--paginate|--no-pager] [--no-replace-objects] [--bare]
            [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
            <command> [<args>]
+
+文字模式下的文件管理员，git是用于管理文件的程序；
 
 **Options：**
 
