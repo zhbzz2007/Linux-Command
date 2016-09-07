@@ -1,4 +1,5 @@
-**用法：**
+## 1.用法
+
 1. cp [选项]... [-T] 源文件 目标文件
 2. cp [选项]... 源文件... 目录
 3. cp [选项]... -t 目录 源文件...
@@ -77,9 +78,9 @@
 有一个特别情况：如果同时指定--force 和--backup 选项，而源文件和目标文件
 是同一个已存在的一般文件的话，cp 会将源文件备份。
 
-**示例:**
+## 2.示例
 
-example 1，不带任何参数下，运行cp；
+**example 1** 不带任何参数下，运行cp；
 
     zhb@zhb-VM:~/Desktop/work/test$ ll temp1
     总用量 8
@@ -92,7 +93,7 @@ example 1，不带任何参数下，运行cp；
     drwxrwxr-x 3 zhb zhb 4096  8月 25 20:47 ../
     -rwxrwxr-x 1 zhb zhb   35  8月 25 20:47 1.txt
 
-example 2，同时拷贝多个文件；
+**example 2** 同时拷贝多个文件；
 
     zhb@zhb-VM:~/Desktop/work/test$ cp 1.txt 2.txt temp1  #同时拷贝多个文件，只需要将多个文件用空格隔开
     zhb@zhb-VM:~/Desktop/work/test$ ll temp1
@@ -102,7 +103,7 @@ example 2，同时拷贝多个文件；
     -rwxrwxr-x 1 zhb zhb   35  8月 25 20:49 1.txt*
     -rwxrwxr-x 1 zhb zhb   35  8月 25 20:49 2.txt
 
-example 3，拷贝一个目录，需要添加-r或-R选项来实现，-r或-R选项表明递归操作，无论该目录是否为空目录，这个选项都是必要的；
+**example 3** 拷贝一个目录，需要添加-r或-R选项来实现，-r或-R选项表明递归操作，无论该目录是否为空目录，这个选项都是必要的；
 
     zhb@zhb-VM:~/Desktop/work/test$ ll
     总用量 24
@@ -121,7 +122,7 @@ example 3，拷贝一个目录，需要添加-r或-R选项来实现，-r或-R选
     -rwxrwxr-x 1 zhb zhb   35  8月 25 20:49 2.txt*
     drwxrwxr-x 2 zhb zhb 4096  8月 25 20:51 temp2/
 
-example 4，创建文件的硬链接，而不是拷贝它们，拷贝文件意味着你必须使用一些存储空间来存储拷贝的文件，有时候出于某些原因，你可能想要创建“快捷方式”或者链接到文件，而不是拷贝它们，要做到这一点，我们可以使用-l选项；注意，硬链接不能用来创建目录；
+**example 4** 创建文件的硬链接，而不是拷贝它们，拷贝文件意味着你必须使用一些存储空间来存储拷贝的文件，有时候出于某些原因，你可能想要创建“快捷方式”或者链接到文件，而不是拷贝它们，要做到这一点，我们可以使用-l选项；注意，硬链接不能用来创建目录；
 
     zhb@zhb-VM:~/Desktop/work/test$ ls -lvi *.txt
     1314345 -rwxrwxr-x 1 zhb zhb 35  8月 25 20:47 1.txt
@@ -130,7 +131,7 @@ example 4，创建文件的硬链接，而不是拷贝它们，拷贝文件意�
     zhb@zhb-VM:~/Desktop/work/test$ ls -lvi temp2/*.txt
     1314345 -rwxrwxr-x 2 zhb zhb 35  8月 25 20:47 temp2/1.txt
 
-example 5，创建文件的符号链接，也有一种链接叫做软链接或者符号链接，我们用-s选项来实现；创建符号链接只能在当前目录下进行；
+**example 5** 创建文件的符号链接，也有一种链接叫做软链接或者符号链接，我们用-s选项来实现；创建符号链接只能在当前目录下进行；
 
     zhb@zhb-VM:~/Desktop/work/test$ cp -s temp2/3.txt 3.txt
     zhb@zhb-VM:~/Desktop/work/test$ ls -l *.txt
@@ -138,7 +139,7 @@ example 5，创建文件的符号链接，也有一种链接叫做软链接或�
     -rwxrwxr-x 1 zhb zhb 35  8月 25 20:42 2.txt
     lrwxrwxrwx 1 zhb zhb 11  8月 25 21:02 3.txt -> temp2/3.txt
 
-example 6, 不随符号链接拷贝原文件，意思就是只拷贝符号链接文件，可以用-P选项来实现，当对符号链接使用cp命令，它会照原样拷贝它自身；
+**example 6** 不随符号链接拷贝原文件，意思就是只拷贝符号链接文件，可以用-P选项来实现，当对符号链接使用cp命令，它会照原样拷贝它自身；
 
     zhb@zhb-VM:~/Desktop/work/test$ cp -P 3.txt temp1
     zhb@zhb-VM:~/Desktop/work/test$ ls -l 3.txt
@@ -146,7 +147,7 @@ example 6, 不随符号链接拷贝原文件，意思就是只拷贝符号链接
     zhb@zhb-VM:~/Desktop/work/test$ ls -l temp1/3.txt
     lrwxrwxrwx 1 zhb zhb 11  8月 25 21:13 temp1/3.txt -> temp2/3.txt
 
-example 7，随符号链接拷贝原文件，-L选项，与-P选项相反；
+**example 7** 随符号链接拷贝原文件，-L选项，与-P选项相反；
 
     zhb@zhb-VM:~/Desktop/work/test$ ls -l 3.txt
     lrwxrwxrwx 1 zhb zhb 11  8月 25 21:02 3.txt -> temp2/3.txt
@@ -154,7 +155,7 @@ example 7，随符号链接拷贝原文件，-L选项，与-P选项相反；
     zhb@zhb-VM:~/Desktop/work/test$ ls -l temp1/3.txt
     -rw-rw-r-- 1 zhb zhb 0  8月 25 21:17 temp1/3.txt
 
-example 8，文件归档，当我们去拷贝一个目录时，我们会用-r或-R选项，但是我们也可以用-a选项来归档文件，这样会创建文件和目录的准确套录，如果有的话，也可以包括符号链接，-a选项会保留原文件或目录的属性；
+**example 8** 文件归档，当我们去拷贝一个目录时，我们会用-r或-R选项，但是我们也可以用-a选项来归档文件，这样会创建文件和目录的准确套录，如果有的话，也可以包括符号链接，-a选项会保留原文件或目录的属性；
 
     zhb@zhb-VM:~/Desktop/work/test$ ls -l temp1
     总用量 12
@@ -169,7 +170,7 @@ example 8，文件归档，当我们去拷贝一个目录时，我们会用-r或
     -rw-rw-r-- 1 zhb zhb    0  8月 25 21:17 3.txt
     drwxrwxr-x 2 zhb zhb 4096  8月 25 20:51 temp2
 
-example 9，显示正在做什么，默认情况下，当拷贝作业成功时，我们仅仅会再次看到命令提示符，如果你想了解在拷贝文件时发生了什么，我们可以用-v选项；
+**example 9** 显示正在做什么，默认情况下，当拷贝作业成功时，我们仅仅会再次看到命令提示符，如果你想了解在拷贝文件时发生了什么，我们可以用-v选项；
 
     zhb@zhb-VM:~/Desktop/work/test$ cp -v *.txt temp3
     "1.txt" -> "temp3/1.txt"
@@ -181,7 +182,7 @@ example 9，显示正在做什么，默认情况下，当拷贝作业成功时�
     -rwxrwxr-x 1 zhb zhb 35  8月 25 21:23 2.txt
     -rw-rw-r-- 1 zhb zhb  0  8月 25 21:23 3.txt
 
-example 10，当原文件较目标文件新时拷贝，我们用-u选项来实现；
+**example 10** 当原文件较目标文件新时拷贝，我们用-u选项来实现；
 
     zhb@zhb-VM:~/Desktop/work/test$ ls -l temp3
     总用量 8
@@ -199,12 +200,12 @@ example 10，当原文件较目标文件新时拷贝，我们用-u选项来实�
     zhb@zhb-VM:~/Desktop/work/test$ cp -vu *.txt temp3
     "1.txt" -> "temp3/1.txt"
 
-example 11,使用交互模式，交互模式下会询问是否覆盖目标目录下的文件，使用-i选项，启用交互模式；
+**example 11** 使用交互模式，交互模式下会询问是否覆盖目标目录下的文件，使用-i选项，启用交互模式；
 
     zhb@zhb-VM:~/Desktop/work/test$ cp -i 1.txt temp3
     cp：是否覆盖"temp3/1.txt"？ y
 
-example 12,创建备份文件，当目标目录已经含有同名文件，默认情况下cp命令会覆盖目标目录下的同名文件，使用--backup选项，cp命令会为每一个现有的目标文件做一个备份；
+**example 12** 创建备份文件，当目标目录已经含有同名文件，默认情况下cp命令会覆盖目标目录下的同名文件，使用--backup选项，cp命令会为每一个现有的目标文件做一个备份；
 
     zhb@zhb-VM:~/Desktop/work/test$ ls -l temp3
     总用量 8
@@ -219,7 +220,7 @@ example 12,创建备份文件，当目标目录已经含有同名文件，默认
     -rwxrwxr-x 1 zhb zhb 35  8月 25 21:23 2.txt
     -rw-rw-r-- 1 zhb zhb  0  8月 25 21:23 3.txt
 
-example 13,只拷贝文件属性，cp命令也提供给我们--arrtibutes-only选项，顾名思义，这个选项只会拷贝文件及其属性，不会拷贝任何数据；
+**example 13** 只拷贝文件属性，cp命令也提供给我们--arrtibutes-only选项，顾名思义，这个选项只会拷贝文件及其属性，不会拷贝任何数据；
 
     zhb@zhb-VM:~/Desktop/work/test$ ll
     总用量 28
@@ -242,14 +243,14 @@ example 13,只拷贝文件属性，cp命令也提供给我们--arrtibutes-only�
     -rwxrwxr-x 1 zhb zhb   35  8月 25 21:23 2.txt*
     -rw-rw-r-- 1 zhb zhb    0  8月 25 21:23 3.txt
 
-example 14,强制拷贝，使用-f选项会强制进行拷贝操作，如果目标文件不能打开，可以用-f尝试一下；
+**example 14** 强制拷贝，使用-f选项会强制进行拷贝操作，如果目标文件不能打开，可以用-f尝试一下；
 
     zhb@zhb-VM:~/Desktop/work/test$ cp -f *.txt -v temp3
     "1.txt" -> "temp3/1.txt"
     "2.txt" -> "temp3/2.txt"
     "3.txt" -> "temp3/3.txt"
 
-example 15,拷贝之前先删除目标，可以用--remove-destination选项实现，这个选项与-f选项形成对照，如果cp命令在目标目录下发现同名文件，cp命令会先删除目标文件，然后再拷贝一份新的；
+**example 15** 拷贝之前先删除目标，可以用--remove-destination选项实现，这个选项与-f选项形成对照，如果cp命令在目标目录下发现同名文件，cp命令会先删除目标文件，然后再拷贝一份新的；
 
     zhb@zhb-VM:~/Desktop/work/test$ cp --remove-destination *.txt -v temp3
     已删除"temp3/1.txt"
