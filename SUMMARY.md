@@ -18,5 +18,6 @@
  - [locate](1.File Management/locate.md)
  - [lsattr](1.File Management/lsattr.md)
  - [mattrib](1.File Management/mattrib.md)
+ - [mcopy](1.File Management/mcopy.md)
 * [2.磁盘管理](2.Disk Management/README.md)
  - [cd](2.Disk Management/cd.md)
